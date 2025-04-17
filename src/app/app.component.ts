@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
 import { ListaDeCompraService } from './service/lista-de-compra.service';
 
@@ -7,7 +7,7 @@ import { ListaDeCompraService } from './service/lista-de-compra.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   title = 'app-lista-de-compras';
   listaCompras!: Item[];
 
@@ -15,5 +15,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaCompras = this.listaCompraService.getListaDeCompra();
+    console.log('AppComponent - ngOnInit');
+  }
+
+  ngOnChanges(): void {
+    console.log('AppComponent - ngOnChanges');
   }
 }
