@@ -5,30 +5,30 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ListaDeCompraService {
-
-  private listaDeCompra: Item[] = [
-    {
-      "id": 1,
-      "nome": "Queijo prato",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 2,
-      "nome": "Leite integral",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 3,
-      "nome": "Mamão papaia",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": true
-    },
-  ]
+  private listaDeCompra: Item[] = [];
+  // private listaDeCompra: Item[] = [
+  //   {
+  //     "id": 1,
+  //     "nome": "Queijo prato",
+  //     "data": "Segunda-feira (31/10/2022) às 08:30",
+  //     "comprado": false
+  //   },
+  //   {
+  //     "id": 2,
+  //     "nome": "Leite integral",
+  //     "data": "Segunda-feira (31/10/2022) às 08:30",
+  //     "comprado": false
+  //   },
+  //   {
+  //     "id": 3,
+  //     "nome": "Mamão papaia",
+  //     "data": "Segunda-feira (31/10/2022) às 08:30",
+  //     "comprado": true
+  //   },
+  // ]
 
   constructor() {
-    console.log('Instanciando dependências necessárias para o serviço.');
+    this.listaDeCompra = JSON.parse(localStorage.getItem('listaDeCompra') || '[]');
   }
 
   getListaDeCompra(){
@@ -37,7 +37,7 @@ export class ListaDeCompraService {
 
   adicionarItem(nomeIitem: string): Item{
     const item: Item = {
-      id: 0,
+      id: this.listaDeCompra.length + 1,
       nome: nomeIitem,
       data: new Date().toLocaleString(),
       comprado: false
@@ -70,5 +70,9 @@ export class ListaDeCompraService {
     if (index !== -1) {
       this.listaDeCompra[index] = itemEditado;
     }
+  }
+
+  atualizarLocalStorage(): void {
+    localStorage.setItem('listaDeCompra', JSON.stringify(this.listaDeCompra));
   }
 }
