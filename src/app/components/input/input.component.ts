@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Item } from 'src/app/interfaces/iItem';
 import { ListaDeCompraService } from 'src/app/service/lista-de-compra.service';
 
@@ -7,14 +7,26 @@ import { ListaDeCompraService } from 'src/app/service/lista-de-compra.service';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css']
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, OnChanges {
+  @Input() itemParaSerEditado!: Item;
+  editando: boolean = false;
+  textoBtn: string = 'Salvar item';
   nomeItem: string = '';
 
   constructor(private listaCompraService: ListaDeCompraService) { }
 
   ngOnInit(): void { }
 
-  adicionarItem(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('InputComponent - ngOnChanges');
+
+    if (!changes['itemParaSerEditado'].firstChange) {
+      this.alternarModoEdicao()
+      this.nomeItem = this.itemParaSerEditado.nome;
+    }
+  }
+
+  modificarItem(): void {
     if (this.nomeItem.trim() === '') {
       alert('O campo nome é obrigatório.');
       return;
@@ -22,13 +34,24 @@ export class InputComponent implements OnInit {
 
     const nomeItemFormatado: string = this.formatarNomeItem();
 
-    this.listaCompraService.adicionarItemLista(nomeItemFormatado);
+    if(this.editando) {
+      this.listaCompraService.editarItemLista(this.itemParaSerEditado, nomeItemFormatado);
+      this.alternarModoEdicao();
+    } else {
+
+      this.listaCompraService.adicionarItemLista(nomeItemFormatado);
+    }
 
     this.limparCampo();
   }
 
   limparCampo(): void {
     this.nomeItem = '';
+  }
+
+  alternarModoEdicao(): void {
+    this.editando = !this.editando;
+    this.textoBtn = this.editando ? 'Editar item' : 'Salvar item';
   }
 
   formatarNomeItem(): string {

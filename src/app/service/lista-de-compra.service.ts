@@ -51,4 +51,24 @@ export class ListaDeCompraService {
 
     this.listaDeCompra.push(item);
   }
+
+  editarItem(itemEmEdicao: Item, nomeNovoItem: string): Item {
+    const itemEditado: Item = {
+      ...itemEmEdicao,
+      nome: nomeNovoItem,
+      data: new Date().toLocaleString(),
+      comprado: false
+    }
+
+    return itemEditado
+  }
+
+  editarItemLista(itemEmEdicao: Item, nomeNovoItem: string): void {
+    const itemEditado: Item = this.editarItem(itemEmEdicao, nomeNovoItem);
+    const index = this.listaDeCompra.findIndex(i => i.id === itemEmEdicao.id);
+
+    if (index !== -1) {
+      this.listaDeCompra[index] = itemEditado;
+    }
+  }
 }

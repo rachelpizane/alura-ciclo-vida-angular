@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Item } from 'src/app/interfaces/iItem';
@@ -10,11 +10,13 @@ import { Item } from 'src/app/interfaces/iItem';
 })
 export class ItemComponent implements OnInit, OnChanges{
   @Input() item!: Item;
+  @Output() emitindoItemParaEditar = new EventEmitter<Item>();
 
   faPen: IconProp = faPen as IconProp;
   faTrash: IconProp = faTrash as IconProp;
   iconStyle: any = {
-    color: '#859dd6'
+    color: '#859dd6',
+    cursor: 'pointer',
   }
 
   constructor() { }
@@ -26,5 +28,9 @@ export class ItemComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
     console.log('ItemComponent - ngOnChanges');
+  }
+
+  emitirEditarItem(): void {
+    this.emitindoItemParaEditar.emit(this.item);
   }
 }
