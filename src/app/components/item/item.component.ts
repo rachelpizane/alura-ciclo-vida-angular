@@ -8,7 +8,7 @@ import { Item } from 'src/app/interfaces/iItem';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit, OnChanges{
+export class ItemComponent implements OnInit, OnChanges {
   @Input() item!: Item;
   @Output() emitindoItemParaEditar = new EventEmitter<Item>();
 
@@ -30,7 +30,15 @@ export class ItemComponent implements OnInit, OnChanges{
     console.log('ItemComponent - ngOnChanges');
   }
 
+  ngDoCheck(): void {
+    console.log('ItemComponent - ngDoCheck');
+  }
+
   emitirEditarItem(): void {
     this.emitindoItemParaEditar.emit(this.item);
+  }
+
+  itemCheckado(): void {
+    this.item.comprado = !this.item.comprado;
   }
 }

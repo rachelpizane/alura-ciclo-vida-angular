@@ -4,8 +4,9 @@
   name="comprado"
   id="comprado"
   [checked]="item.comprado"
+  (change)="emitirItemCheckado()"
   >
-<p class="description"> {{ item.nome }}</p>
+<p class="description" [class.line-through]="item.comprado"> {{ item.nome }}</p>
 <div class="d-contents" *ngIf="!item.comprado">
   <fa-icon class="delete-icon" [icon]="faTrash" [ngStyle]="iconStyle"></fa-icon>
   <fa-icon class="edit-icon" [icon]="faPen" [ngStyle]="iconStyle" (click)="emitirEditarItem()"></fa-icon>
