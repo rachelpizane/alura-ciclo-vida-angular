@@ -33,7 +33,6 @@ export class AppComponent implements OnInit, OnChanges, DoCheck{
   }
 
   deletarItem(id: number): void {
-    this.listaCompras = this.listaCompras.filter(item => item.id !== id);
-    //this.listaCompraService.deletarItem(id);
+    this.listaCompraService.deletarItemNaLista(id);
   }
 }

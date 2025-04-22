@@ -72,6 +72,14 @@ export class ListaDeCompraService {
     }
   }
 
+  deletarItemNaLista(id: number) : void {
+    const index = this.listaDeCompra.findIndex(i => i.id === id);
+
+    if (index !== -1) {
+      this.listaDeCompra.splice(index, 1);
+    }
+  }
+  
   atualizarLocalStorage(): void {
     localStorage.setItem('listaDeCompra', JSON.stringify(this.listaDeCompra));
   }
