@@ -1,7 +1,6 @@
+import { ListaDeCompraService } from 'src/app/service/lista-de-compra.service';
 import { Component, DoCheck, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
-import { ListaDeCompraService } from './service/lista-de-compra.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,5 +33,10 @@ export class AppComponent implements OnInit, OnChanges, DoCheck{
 
   deletarItem(id: number): void {
     this.listaCompraService.deletarItemNaLista(id);
+  }
+
+  limparLista(): void {
+    this.listaCompras = [];
+    this.listaCompraService.limparListaDeCompra();
   }
 }

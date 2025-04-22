@@ -79,8 +79,11 @@ export class ListaDeCompraService {
       this.listaDeCompra.splice(index, 1);
     }
   }
-  
+
   atualizarLocalStorage(): void {
     localStorage.setItem('listaDeCompra', JSON.stringify(this.listaDeCompra));
   }
+
+  limparListaDeCompra(): void {
+    this.listaDeCompra = [];  }
 }

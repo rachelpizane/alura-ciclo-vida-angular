@@ -3,9 +3,15 @@
   </app-input>
   <div class="container">
     <div class="lista">
-      <h4>Lista de Compras</h4>
+      <div class="header-lista">
+        <h4 class="title-list">Lista de Compras</h4>
+        <button class="btn-header" (click)="limparLista()">
+          <small>Limpar lista</small>
+        </button>
+      </div>
       <div *ngIf="listaCompras.length !== 0 ; else semItens">
-        <app-item *ngFor="let item of listaCompras" [item]="item" (emitindoItemParaEditar)="editarItem($event)" (emitindoItemParaDeletar)="deletarItem($event)"></app-item>
+        <app-item *ngFor="let item of listaCompras" [item]="item" (emitindoItemParaEditar)="editarItem($event)"
+          (emitindoItemParaDeletar)="deletarItem($event)"></app-item>
       </div>
       <ng-template #semItens>
         <p class="sem-item">Nenhum item na lista de compras</p>
