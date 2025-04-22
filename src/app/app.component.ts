@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
 import { ListaDeCompraService } from './service/lista-de-compra.service';
 
@@ -7,7 +7,7 @@ import { ListaDeCompraService } from './service/lista-de-compra.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges, DoCheck {
+export class AppComponent implements OnInit, OnChanges, DoCheck{
   title = 'app-lista-de-compras';
   listaCompras!: Item[];
   itemParaSerEditado!: Item;
@@ -30,5 +30,10 @@ export class AppComponent implements OnInit, OnChanges, DoCheck {
 
   editarItem(item: Item): void {
     this.itemParaSerEditado = item;
+  }
+
+  deletarItem(id: number): void {
+    this.listaCompras = this.listaCompras.filter(item => item.id !== id);
+    //this.listaCompraService.deletarItem(id);
   }
 }

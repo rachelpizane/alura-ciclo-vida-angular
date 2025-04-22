@@ -8,7 +8,7 @@
   >
 <p class="description" [class.line-through]="item.comprado"> {{ item.nome }}</p>
 <div class="d-contents" *ngIf="!item.comprado">
-  <fa-icon class="delete-icon" [icon]="faTrash" [ngStyle]="iconStyle"></fa-icon>
+  <fa-icon class="delete-icon" [icon]="faTrash" [ngStyle]="iconStyle" (click)="emitirDeletarItem()"></fa-icon>
   <fa-icon class="edit-icon" [icon]="faPen" [ngStyle]="iconStyle" (click)="emitirEditarItem()"></fa-icon>
 </div>
 <small class="date">{{ item.data }}</small>

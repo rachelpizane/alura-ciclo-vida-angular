@@ -5,7 +5,7 @@
     <div class="lista">
       <h4>Lista de Compras</h4>
       <div *ngIf="listaCompras.length !== 0 ; else semItens">
-        <app-item *ngFor="let item of listaCompras" [item]="item" (emitindoItemParaEditar)="editarItem($event)"></app-item>
+        <app-item *ngFor="let item of listaCompras" [item]="item" (emitindoItemParaEditar)="editarItem($event)" (emitindoItemParaDeletar)="deletarItem($event)"></app-item>
       </div>
       <ng-template #semItens>
         <p class="sem-item">Nenhum item na lista de compras</p>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Item } from 'src/app/interfaces/iItem';
@@ -8,9 +8,10 @@ import { Item } from 'src/app/interfaces/iItem';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit, OnChanges {
+export class ItemComponent implements OnInit, OnChanges, OnDestroy {
   @Input() item!: Item;
   @Output() emitindoItemParaEditar = new EventEmitter<Item>();
+  @Output() emitindoItemParaDeletar = new EventEmitter<number>();
 
   faPen: IconProp = faPen as IconProp;
   faTrash: IconProp = faTrash as IconProp;
@@ -34,8 +35,16 @@ export class ItemComponent implements OnInit, OnChanges {
     console.log('ItemComponent - ngDoCheck');
   }
 
+  ngOnDestroy(): void {
+    console.log('ItemComponent - ngOnDestroy');
+  }
+
   emitirEditarItem(): void {
     this.emitindoItemParaEditar.emit(this.item);
+  }
+
+  emitirDeletarItem(): void {
+    this.emitindoItemParaDeletar.emit(this.item.id);
   }
 
   itemSelecionado(): void {
